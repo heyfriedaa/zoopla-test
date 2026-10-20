@@ -45,6 +45,9 @@
   // status dropdowns — persisted per row in localStorage
   var savedStatuses = {};
   try { savedStatuses = JSON.parse(localStorage.getItem('bw-statuses') || '{}'); } catch (e) {}
+  Object.keys(savedStatuses).forEach(function (k) {
+    if (savedStatuses[k].s === 'New') savedStatuses[k].s = 'Open'; // legacy label
+  });
 
   function pillClass(s) {
     return 'bw-pill ' + (s === 'Open' ? 'bw-pill-new' : s === 'Contacted' ? 'bw-pill-contacted' : 'bw-pill-tbc');
@@ -56,7 +59,7 @@
     pill.className = pillClass(s);
     var row = wrap.closest('tr');
     if (row) {
-      if (s === 'Open') {} else { row.classList.remove('is-new'); }
+      row.classList.toggle('is-new', s === 'Open');
       var lu = row.querySelector('.last-updated');
       if (lu) lu.textContent = s === 'Open' ? 'never' : (stamp || 'today at ' + new Date().toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}));
     }
