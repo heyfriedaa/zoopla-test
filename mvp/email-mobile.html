@@ -4,34 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Email — mobile | Buildwell</title>
-<link rel="stylesheet" href="../design-system/buildwell.css">
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{font-family:Roboto,Arial,sans-serif;background:#555;display:flex;justify-content:center;min-height:100vh;padding:24px 12px}
+  .phone{width:390px;max-width:100%;background:#fff;border-radius:28px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  /* gmail mobile chrome */
+  .g-status{display:flex;justify-content:space-between;padding:10px 20px 4px;font-size:12px;color:#1f1f1f}
+  .g-searchbar{margin:6px 14px 10px;background:#f0f4f9;border-radius:24px;height:44px;
+    display:flex;align-items:center;gap:10px;padding:0 14px;color:#5f6368;font-size:14px}
+  .g-searchbar .av{margin-left:auto;width:26px;height:26px;border-radius:50%;background:#7c4dff;
+    color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+  .g-head{display:flex;align-items:center;gap:14px;padding:8px 16px;color:#1f1f1f}
+  .g-head .sub{font-size:16px;font-weight:400}
+  .g-from{display:flex;gap:10px;padding:6px 16px 14px;border-bottom:1px solid #f0f0f0;align-items:flex-start}
+  .g-from .av{flex:none;width:36px;height:36px;border-radius:50%;background:#5f6368;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:600}
+  .g-from b{font-size:14px}
+  .g-from small{display:block;color:#5f6368;font-size:12px}
+  .g-from .when{margin-left:auto;font-size:11px;color:#5f6368}
+
+  /* email content — black & white */
+  .mail{padding:26px 20px 40px;color:#1a1a1a}
+  .mail .logo{font-weight:800;font-size:17px;letter-spacing:-.02em}
+  .mail h1{font-size:20px;font-weight:700;margin:22px 0 8px}
+  .mail .meta{color:#444;font-size:14px;margin-bottom:20px}
+  .mail .cta{display:block;background:#1a1a1a;color:#fff;text-align:center;font-weight:600;
+    padding:14px;border-radius:8px;font-size:15px;text-decoration:none}
+  .mail .foot{font-size:11.5px;color:#8a8a8a;border-top:1px solid #e2e2e2;padding-top:12px;margin-top:26px}
+</style>
 </head>
 <body>
-<div class="bw-page" style="max-width:560px">
-  <p><a href="../index.html">&larr; Prototype index</a></p>
-  <h1 class="bw-h1">New-introduction email — mobile</h1>
-  <p class="bw-sub">Sent to the firm's registered email when an introduction arrives. Teaser only: job type, area, age. No name or phone.</p>
 
-  <div class="bw-assumption"><strong>Assumption</strong> — sent to the registered login email; shared inbox, so whoever sees it first can act.</div>
-
-  <div class="bw-device">
-    <div class="bw-mail-head">
-      <b>New introduction: Loft conversion in SE22</b>
-      Buildwell &lt;hello@buildwell.example&gt; &middot; to Marsden &amp; Sons
-    </div>
-    <div class="bw-mail-body">
-      <div class="bw-logo">build<span>well</span></div>
-      <h1>New introduction</h1>
-      <p class="bw-mail-meta">
-        <strong>Loft conversion</strong> &middot; SE22 &middot; received 2 hours ago
-      </p>
-      <p>A homeowner in your area is looking for a firm. Sign in to view their details and get in touch.</p>
-      <a class="bw-btn bw-btn-block" href="introductions.html?intro=rachel">View introduction</a>
-      <p class="bw-mail-evidence">Firms that reply within an hour win about 3x as often as those that take a day.</p>
-    </div>
+<div class="phone">
+  <div class="g-status"><span>9:41</span><span>&#128246; &#128267;</span></div>
+  <div class="g-searchbar">&#9776; &nbsp;Search in mail <span class="av">M</span></div>
+  <div class="g-head"><span>&#8592;</span><span class="sub">New introduction: Loft conversion in SE22</span></div>
+  <div class="g-from">
+    <div class="av">B</div>
+    <div><b>Buildwell</b><small>to Marsden &amp; Sons</small></div>
+    <div class="when">2h ago</div>
   </div>
-  <p class="bw-anno-note">CTA deep-links to this introduction in the list. Evidence line is informational, not pushy.</p>
-  <p style="margin-top:24px"><a href="email-desktop.html">View desktop version &rarr;</a></p>
+  <div class="mail">
+    <div class="logo">buildwell</div>
+    <h1>New introduction</h1>
+    <div class="meta"><b>Loft conversion</b> &middot; SE22 &middot; received 2 hours ago</div>
+    <a class="cta" href="introductions.html?intro=rachel">View introduction</a>
+    <div class="foot">Firms that reply within an hour win about 3x as often as those that take a day.</div>
+  </div>
 </div>
+
 </body>
 </html>

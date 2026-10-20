@@ -4,30 +4,95 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Email — desktop | Buildwell</title>
-<link rel="stylesheet" href="../design-system/buildwell.css">
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{font-family:Roboto,Arial,sans-serif;background:#f6f8fc;color:#1f1f1f;font-size:14px}
+  a{text-decoration:none;color:inherit}
+
+  /* gmail chrome */
+  .g-top{display:flex;align-items:center;gap:14px;padding:10px 16px;background:#f6f8fc}
+  .g-burger{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#444}
+  .g-logo{font-size:22px;color:#5f6368;display:flex;align-items:center;gap:8px}
+  .g-logo b{font-weight:400}
+  .g-logo .m{color:#ea4335;font-weight:700}
+  .g-search{flex:1;max-width:720px;background:#eaf1fb;border-radius:24px;height:46px;
+    display:flex;align-items:center;padding:0 16px;color:#5f6368;font-size:14px;gap:10px}
+  .g-avatar{width:32px;height:32px;border-radius:50%;background:#7c4dff;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;margin-left:auto}
+
+  .g-body{display:flex;min-height:calc(100vh - 66px)}
+  .g-side{width:250px;padding:8px 8px 8px 16px}
+  .g-compose{background:#c2e7ff;color:#001d35;font-size:14px;font-weight:500;border-radius:16px;
+    padding:14px 20px;display:inline-flex;gap:10px;align-items:center;margin:8px 0 16px;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+  .g-nav div{padding:6px 16px 6px 12px;border-radius:0 16px 16px 0;font-size:14px;color:#1f1f1f;
+    display:flex;justify-content:space-between}
+  .g-nav div.on{background:#d3e3fd;font-weight:600}
+  .g-nav .n{font-size:12px}
+
+  .g-main{flex:1;background:#fff;border-radius:16px 0 0 0;margin-right:0;overflow:hidden}
+  .g-toolbar{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid #eee;color:#5f6368}
+  .g-toolbar .chk{width:16px;height:16px;border:1.5px solid #9aa0a6;border-radius:2px}
+  .g-subject{padding:16px 24px 0;font-size:20px;font-weight:400;display:flex;justify-content:space-between;align-items:center}
+  .g-subject .cat{font-size:12px;background:#eee;border-radius:4px;padding:2px 6px;color:#444;margin-left:10px}
+
+  .g-msg{padding:12px 24px 40px}
+  .g-from{display:flex;align-items:center;gap:12px;padding:8px 0 16px;border-bottom:1px solid #f0f0f0}
+  .g-from .av{width:40px;height:40px;border-radius:50%;background:#5f6368;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:600}
+  .g-from .who b{font-size:14px}
+  .g-from .who small{display:block;color:#5f6368;font-size:12px}
+  .g-from .when{margin-left:auto;font-size:12px;color:#5f6368}
+
+  /* email content — black & white */
+  .mail{max-width:520px;margin:0 auto;padding:36px 24px;color:#1a1a1a}
+  .mail .logo{font-weight:800;font-size:18px;letter-spacing:-.02em}
+  .mail h1{font-size:22px;font-weight:700;margin:24px 0 8px}
+  .mail .meta{color:#444;font-size:14px;margin-bottom:20px}
+  .mail .cta{display:block;background:#1a1a1a;color:#fff;text-align:center;font-weight:600;
+    padding:14px;border-radius:8px;font-size:15px}
+  .mail .foot{font-size:12px;color:#8a8a8a;border-top:1px solid #e2e2e2;padding-top:14px;margin-top:28px}
+</style>
 </head>
 <body>
-<div class="bw-page" style="max-width:760px">
-  <p><a href="../index.html">&larr; Prototype index</a> &middot; <a href="email-mobile.html">&larr; Mobile version</a></p>
-  <h1 class="bw-h1">New-introduction email — desktop</h1>
-  <p class="bw-sub">Same content as mobile, wider client frame.</p>
 
-  <div class="bw-device bw-device-wide">
-    <div class="bw-mail-head">
-      <b>New introduction: Loft conversion in SE22</b>
-      Buildwell &lt;hello@buildwell.example&gt; &middot; to Marsden &amp; Sons
+<div class="g-top">
+  <div class="g-burger">&#9776;</div>
+  <div class="g-logo"><span class="m">&#9993;</span><b>Gmail</b></div>
+  <div class="g-search">&#128269; Search mail</div>
+  <div class="g-avatar">M</div>
+</div>
+
+<div class="g-body">
+  <div class="g-side">
+    <div class="g-compose">&#9998; Compose</div>
+    <div class="g-nav">
+      <div class="on">Inbox <span class="n">3</span></div>
+      <div>Starred</div>
+      <div>Snoozed</div>
+      <div>Sent</div>
+      <div>Drafts</div>
     </div>
-    <div class="bw-mail-body" style="padding:40px 56px">
-      <div class="bw-logo">build<span>well</span></div>
-      <h1>New introduction</h1>
-      <p class="bw-mail-meta">
-        <strong>Loft conversion</strong> &middot; SE22 &middot; received 2 hours ago
-      </p>
-      <p>A homeowner in your area is looking for a firm. Sign in to view their details and get in touch.</p>
-      <a class="bw-btn" href="introductions.html?intro=rachel" style="min-width:260px;text-align:center">View introduction</a>
-      <p class="bw-mail-evidence">Firms that reply within an hour win about 3x as often as those that take a day.</p>
+  </div>
+
+  <div class="g-main">
+    <div class="g-toolbar"><div class="chk"></div><span>&#10227;</span><span>&#128499;</span><span>&#8942;</span></div>
+    <div class="g-subject">New introduction: Loft conversion in SE22 <span class="cat">Inbox</span></div>
+    <div class="g-msg">
+      <div class="g-from">
+        <div class="av">B</div>
+        <div class="who"><b>Buildwell</b><small>&lt;hello@buildwell.example&gt; &middot; to Marsden &amp; Sons</small></div>
+        <div class="when">2 hours ago</div>
+      </div>
+      <div class="mail">
+        <div class="logo">buildwell</div>
+        <h1>New introduction</h1>
+        <div class="meta"><b>Loft conversion</b> &middot; SE22 &middot; received 2 hours ago</div>
+        <a class="cta" href="introductions.html?intro=rachel">View introduction</a>
+        <div class="foot">Firms that reply within an hour win about 3x as often as those that take a day.</div>
+      </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home | Buildwell Plus</title>
 <link rel="stylesheet" href="../design-system/buildwell.css">
+<link rel="stylesheet" href="../design-system/lofi.css">
 </head>
 <body>
 
@@ -21,23 +22,24 @@
     <a href="#">Reviews</a>
     <a href="#">Account</a>
   </nav>
-  <div class="bw-bell bw-new-outline">
-    <button class="bw-bell-btn" aria-label="Notifications">&#128276;<span class="bw-bell-count">2</span></button>
+  <div class="bw-bell">
+    <button class="bw-bell-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg><span class="bw-bell-count">2</span></button>
     <div class="bw-bell-menu">
-      <h4>New introductions</h4>
-      <a class="bw-bell-item" href="introductions.html?intro=rachel">Loft conversion &middot; SE22<span class="t"><br>Rachel Okafor &middot; 2h ago</span></a>
-      <a class="bw-bell-item" href="introductions.html?intro=tom">Extension &middot; SE15<span class="t"><br>Tom Ellery &middot; 1d ago</span></a>
+      <h4>Notifications</h4>
+      <a class="bw-bell-item" href="introductions.html?intro=rachel">New introduction from Rachel Okafor<span class="t"><br>2h ago</span></a>
+      <a class="bw-bell-item" href="introductions.html?intro=tom">New introduction from Tom Ellery<span class="t"><br>3h ago</span></a>
+      <button class="bw-bell-clear">Mark all as read</button>
     </div>
   </div>
 </header>
 
 <main class="bw-page">
   <h1 class="bw-h1">Good afternoon, Marsden &amp; Sons</h1>
-  <p class="bw-sub">Tuesday 20 October</p>
+  <p class="bw-sub">&nbsp;</p>
 
   <div class="bw-tiles">
-    <a class="bw-tile bw-new-outline" href="introductions.html">
-      <span class="k">Introductions this month <span class="bw-anno">New</span></span>
+    <a class="bw-tile" href="introductions.html">
+      <span class="k">Introductions this month</span>
       <span class="v">14</span>
       <span class="d"><span class="bw-badge-new">2 new</span></span>
     </a>
@@ -45,9 +47,6 @@
     <div class="bw-tile"><span class="k">Average rating</span><div class="v">4.6</div></div>
     <div class="bw-tile"><span class="k">Profile completeness</span><div class="v">82%</div></div>
   </div>
-
-  <div class="bw-assumption"><strong>To validate</strong> — browser notification opt-in prompt could appear here on first visit (not shown by default).</div>
-  <p class="bw-anno-note">New on this page: clickable Introductions tile with badge &middot; notification bell with count + dropdown.</p>
 </main>
 
 <script src="../design-system/buildwell.js"></script>

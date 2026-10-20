@@ -1,0 +1,31 @@
+/* Lo-fi skeleton override — grayscale only, no annotation chrome */
+:root{
+  --bw-ink:#1a1a1a; --bw-ink-soft:#444; --bw-mute:#8a8a8a;
+  --bw-primary:#1a1a1a; --bw-primary-dark:#000;
+  --bw-primary-soft:#f0f0f0;
+  --bw-bg:#f7f7f7; --bw-surface:#fff; --bw-line:#e2e2e2;
+  --bw-green:#333; --bw-green-soft:#eee;
+  --bw-amber:#777; --bw-amber-soft:#f4f4f4;
+}
+.bw-badge-new{background:#1a1a1a}
+.bw-pill{border:1px solid #cfcfcf;background:#fff;color:#1a1a1a}
+.bw-pill-contacted{background:#ececec}
+.bw-pill-tbc{border-style:dashed;color:#666;background:#f4f4f4}
+.bw-table tr.is-new td{background:#f4f4f4}
+.bw-table tr.is-new td:first-child{box-shadow:inset 3px 0 0 #1a1a1a}
+.bw-btn{background:#1a1a1a;color:#fff}
+.bw-btn:hover{background:#000}
+.bw-bell-count{background:#1a1a1a}
+.bw-nav a.active{background:#eee;color:#1a1a1a}
+.bw-logo span{color:#1a1a1a}
+.bw-card{overflow:visible}
+.bw-table th .sort{font-weight:700;color:#1a1a1a}
+.bw-bell-clear{display:block;width:100%;border:0;background:none;padding:10px 14px;
+  font:inherit;font-size:13px;font-weight:600;color:#1a1a1a;cursor:pointer;text-align:center}
+.bw-bell-clear:hover{background:#f4f4f4}
+.bw-bell-empty{padding:14px;font-size:13px;color:#8a8a8a;text-align:center}
+.bw-bell-btn svg{width:16px;height:16px;stroke:#1a1a1a;vertical-align:-2px}
+@media (max-width:860px){
+  .bw-status-menu{left:0;right:auto;min-width:0;width:170px}
+}
+a.bw-tile:hover{border-color:#999}
