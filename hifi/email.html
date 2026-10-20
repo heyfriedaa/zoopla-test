@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email — mobile &amp; desktop | Buildwell</title>
+<link rel="stylesheet" href="../design-system/lofi.css"><style>.mail .cta{background:#7c3aed!important}.mail .logo{color:#7c3aed}.mail h1{letter-spacing:-.02em}</style>
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{font-family:Roboto,Arial,sans-serif;background:#eef0f3;min-height:100vh;padding:32px 20px;color:#1f1f1f}
+  .wrap{display:flex;gap:32px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+  .cap{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8a8a8a;text-align:center;margin-bottom:10px}
+
+  /* ------- gmail chrome (shared) ------- */
+  .g-searchbar{background:#f0f4f9;border-radius:24px;height:44px;display:flex;align-items:center;
+    gap:10px;padding:0 14px;color:#5f6368;font-size:14px}
+  .g-av-sm{width:26px;height:26px;border-radius:50%;background:#7c4dff;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;margin-left:auto}
+  .g-from{display:flex;gap:10px;align-items:flex-start}
+  .g-from .av{flex:none;width:36px;height:36px;border-radius:50%;background:#5f6368;color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:600}
+  .g-from b{font-size:14px}
+  .g-from small{display:block;color:#5f6368;font-size:12px}
+  .g-from .when{margin-left:auto;font-size:11px;color:#5f6368}
+
+  /* ------- email content (black & white) ------- */
+  .mail{color:#1a1a1a}
+  .mail .logo{font-weight:800;font-size:17px;letter-spacing:-.02em}
+  .mail h1{font-size:20px;font-weight:700;margin:22px 0 8px}
+  .mail .meta{font-size:14px;color:#444;margin-bottom:4px}
+  .mail .meta b{color:#1a1a1a}
+  .mail .notes{font-size:13px;color:#666;font-style:italic;margin:10px 0 22px}
+  .mail .cta{display:block;background:#1a1a1a;color:#fff;text-align:center;font-weight:600;
+    padding:14px;border-radius:8px;font-size:15px;text-decoration:none}
+  .mail .foot{font-size:11.5px;color:#8a8a8a;border-top:1px solid #e2e2e2;padding-top:12px;margin-top:26px}
+
+  /* ------- phone frame ------- */
+  .phone{width:380px;background:#fff;border-radius:28px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.18)}
+  .g-status{display:flex;justify-content:space-between;padding:10px 20px 4px;font-size:12px}
+  .phone .g-searchbar{margin:6px 14px 10px}
+  .g-head{display:flex;align-items:center;gap:14px;padding:8px 16px}
+  .g-head .sub{font-size:15px}
+  .phone .g-from{padding:6px 16px 14px;border-bottom:1px solid #f0f0f0}
+  .phone .mail{padding:24px 20px 36px}
+
+  /* ------- desktop frame ------- */
+  .desk{width:660px;background:#f6f8fc;border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.18)}
+  .g-top{display:flex;align-items:center;gap:14px;padding:8px 16px}
+  .g-logo{font-size:20px;color:#5f6368}
+  .g-logo .m{color:#ea4335}
+  .desk .g-searchbar{flex:1;max-width:480px}
+  .d-body{display:flex;background:#fff;border-top:1px solid #eee;min-height:420px}
+  .d-side{width:150px;padding:12px 10px;border-right:1px solid #f0f0f0}
+  .d-compose{background:#c2e7ff;color:#001d35;font-size:13px;font-weight:500;border-radius:14px;
+    padding:10px 14px;display:inline-flex;gap:8px;align-items:center;margin-bottom:12px}
+  .d-nav div{padding:5px 10px;border-radius:0 14px 14px 0;font-size:13px}
+  .d-nav div.on{background:#d3e3fd;font-weight:600}
+  .d-main{flex:1}
+  .d-subject{padding:14px 20px 0;font-size:18px;font-weight:400}
+  .desk .g-from{padding:10px 20px 12px;border-bottom:1px solid #f0f0f0;margin-top:8px}
+  .desk .mail{max-width:480px;margin:0 auto;padding:28px 24px 36px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div>
+    <div class="cap">Mobile</div>
+    <div class="phone">
+      <div class="g-status"><span>9:41</span><span>&#128246; &#128267;</span></div>
+      <div class="g-searchbar">&#9776; &nbsp;Search in mail <span class="g-av-sm">M</span></div>
+      <div class="g-head"><span>&#8592;</span><span class="sub">New query: Loft in SE22</span></div>
+      <div class="g-from">
+        <div class="av">B</div>
+        <div><b>Buildwell</b><small>to Marsden &amp; Sons</small></div>
+        <div class="when">1 min ago</div>
+      </div>
+      <div class="mail">
+        <div class="logo">buildwell</div>
+        <h1>New query</h1>
+        <div class="meta"><b>Rachel Okafor</b> &middot; Loft conversion &middot; SE22 &middot; 1 minute ago</div>
+        <div class="notes">"Looking to convert the loft, maybe with an ensuite…"</div>
+        <a class="cta" href="introductions.html?intro=rachel">View details</a>
+        <div class="foot">Tips: replying within an hour wins about 3x as often as taking longer.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="cap">Desktop</div>
+    <div class="desk">
+      <div class="g-top">
+        <span style="color:#5f6368">&#9776;</span>
+        <div class="g-logo"><span class="m">&#9993;</span> Gmail</div>
+        <div class="g-searchbar">&#128269; Search mail</div>
+        <div class="g-av-sm" style="margin-left:0">M</div>
+      </div>
+      <div class="d-body">
+        <div class="d-side">
+          <div class="d-compose">&#9998; Compose</div>
+          <div class="d-nav">
+            <div class="on">Inbox</div>
+            <div>Starred</div>
+            <div>Sent</div>
+            <div>Drafts</div>
+          </div>
+        </div>
+        <div class="d-main">
+          <div class="d-subject">New query: Loft in SE22</div>
+          <div class="g-from">
+            <div class="av">B</div>
+            <div><b>Buildwell</b><small>&lt;hello@buildwell.example&gt; &middot; to Marsden &amp; Sons</small></div>
+            <div class="when">1 minute ago</div>
+          </div>
+          <div class="mail">
+            <div class="logo">buildwell</div>
+            <h1>New query</h1>
+            <div class="meta"><b>Rachel Okafor</b> &middot; Loft conversion &middot; SE22 &middot; 1 minute ago</div>
+            <div class="notes">"Looking to convert the loft, maybe with an ensuite…"</div>
+            <a class="cta" href="introductions.html?intro=rachel">View details</a>
+            <div class="foot">Tips: replying within an hour wins about 3x as often as taking longer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="hifi.js"></script>
+</body>
+</html>

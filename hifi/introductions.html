@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introductions | Buildwell Plus</title>
+<link rel="stylesheet" href="hifi.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><span class="mk">b</span>buildwell <span style="font-weight:500;color:var(--mute);font-size:12px">plus</span></div>
+  <nav class="nav">
+    <a href="home.html">Home</a>
+    <a href="introductions.html" class="active">Introductions</a>
+    <a href="#">My listings</a>
+    <a href="#">Profile</a>
+    <a href="#">Photos</a>
+    <a href="#">Performance</a>
+    <a href="#">Estimates</a>
+    <a href="#">Reviews</a>
+    <a href="#">Account</a>
+  </nav>
+  <div class="top-right">
+    <div class="bell">
+      <button class="bell-btn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg><span class="bell-count">2</span></button>
+      <div class="bell-menu">
+        <h4>Notifications</h4>
+        <a class="bell-item" href="introductions.html?intro=rachel">New introduction from Rachel Okafor<span class="t"><br>1 min ago</span></a>
+        <a class="bell-item" href="introductions.html?intro=tom">New introduction from Tom Ellery<span class="t"><br>2h ago</span></a>
+        <button class="bell-clear">Mark all as read</button>
+      </div>
+    </div>
+    <div class="avatar">MS</div>
+  </div>
+</header>
+
+<main class="page">
+  <h1>Introductions</h1>
+
+  <div class="tcard">
+    <div class="tcard-h"><span class="cnt">5 introductions</span></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Name</th><th>Phone</th><th>Area</th><th>Job</th><th>Notes</th>
+          <th>Received <span class="sort-i">&#8595;</span></th>
+          <th>Last updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="rachel" class="is-new">
+          <td data-th="Status"><div class="st"><button class="pill pill-open">Open</button><div class="st-menu">
+            <button data-status="Open">Open</button><button data-status="Contacted">Contacted</button>
+            <button data-status="Visit booked">Visit booked <span class="tbc-note">TBC w/ product</span></button>
+            <button data-status="Not pursuing">Not pursuing <span class="tbc-note">TBC w/ product</span></button></div></div></td>
+          <td data-th="Name"><b>Rachel Okafor</b></td>
+          <td data-th="Phone" class="mono">07700 900142</td>
+          <td data-th="Area">SE22</td>
+          <td data-th="Job">Loft</td>
+          <td data-th="Notes" class="notes">"Looking to convert the loft, maybe with an ensuite. Not sure yet."</td>
+          <td data-th="Received">1m</td>
+          <td data-th="Last updated" class="last-updated">never</td>
+        </tr>
+        <tr id="tom" class="is-new">
+          <td data-th="Status"><div class="st"><button class="pill pill-open">Open</button><div class="st-menu">
+            <button data-status="Open">Open</button><button data-status="Contacted">Contacted</button>
+            <button data-status="Visit booked">Visit booked <span class="tbc-note">TBC w/ product</span></button>
+            <button data-status="Not pursuing">Not pursuing <span class="tbc-note">TBC w/ product</span></button></div></div></td>
+          <td data-th="Name"><b>Tom Ellery</b></td>
+          <td data-th="Phone" class="mono">07700 900318</td>
+          <td data-th="Area">SE15</td>
+          <td data-th="Job">Extension</td>
+          <td data-th="Notes" class="notes">&mdash;</td>
+          <td data-th="Received">2h</td>
+          <td data-th="Last updated" class="last-updated">never</td>
+        </tr>
+        <tr id="bhandari">
+          <td data-th="Status"><div class="st"><button class="pill pill-contacted">Contacted</button><div class="st-menu">
+            <button data-status="Open">Open</button><button data-status="Contacted">Contacted</button>
+            <button data-status="Visit booked">Visit booked <span class="tbc-note">TBC w/ product</span></button>
+            <button data-status="Not pursuing">Not pursuing <span class="tbc-note">TBC w/ product</span></button></div></div></td>
+          <td data-th="Name"><b>A. Bhandari</b></td>
+          <td data-th="Phone" class="mono">07700 900276</td>
+          <td data-th="Area">SE22</td>
+          <td data-th="Job">Kitchen</td>
+          <td data-th="Notes" class="notes">"Need a new kitchen."</td>
+          <td data-th="Received">1d</td>
+          <td data-th="Last updated" class="last-updated">today at 9:15am</td>
+        </tr>
+        <tr id="lindqvist">
+          <td data-th="Status"><div class="st"><button class="pill pill-tbc">Visit booked</button><div class="st-menu">
+            <button data-status="Open">Open</button><button data-status="Contacted">Contacted</button>
+            <button data-status="Visit booked">Visit booked <span class="tbc-note">TBC w/ product</span></button>
+            <button data-status="Not pursuing">Not pursuing <span class="tbc-note">TBC w/ product</span></button></div></div></td>
+          <td data-th="Name"><b>M. Lindqvist</b></td>
+          <td data-th="Phone" class="mono">07700 900204</td>
+          <td data-th="Area">SE23</td>
+          <td data-th="Job">Loft</td>
+          <td data-th="Notes" class="notes">&mdash;</td>
+          <td data-th="Received">3d</td>
+          <td data-th="Last updated" class="last-updated">yesterday</td>
+        </tr>
+        <tr id="prosser">
+          <td data-th="Status"><div class="st"><button class="pill pill-tbc">Not pursuing</button><div class="st-menu">
+            <button data-status="Open">Open</button><button data-status="Contacted">Contacted</button>
+            <button data-status="Visit booked">Visit booked <span class="tbc-note">TBC w/ product</span></button>
+            <button data-status="Not pursuing">Not pursuing <span class="tbc-note">TBC w/ product</span></button></div></div></td>
+          <td data-th="Name"><b>Dawn Prosser</b></td>
+          <td data-th="Phone" class="mono">07700 900351</td>
+          <td data-th="Area">SE15</td>
+          <td data-th="Job">Bathroom</td>
+          <td data-th="Notes" class="notes">"Two bathrooms, one en-suite."</td>
+          <td data-th="Received">4d</td>
+          <td data-th="Last updated" class="last-updated">2 days ago</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var id = q.get('intro');
+  if(id){
+    var row = document.getElementById(id);
+    if(row){ row.scrollIntoView({block:'center'}); row.style.outline='2px solid var(--zp)'; setTimeout(function(){row.style.outline='';},1800); }
+  }
+  var demo = q.get('demo');
+  if(demo){
+    var r = document.getElementById('rachel');
+    if(demo==='menu') r.querySelector('.st-menu').classList.add('open');
+    if(demo==='contacted'){
+      var p=r.querySelector('.pill'); p.textContent='Contacted'; p.className='pill pill-contacted';
+      r.classList.remove('is-new'); r.querySelector('.last-updated').textContent='today at 9:41am';
+    }
+  }
+})();
+</script>
+<script src="hifi.js"></script>
+</body>
+</html>

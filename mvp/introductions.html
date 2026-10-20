@@ -154,10 +154,22 @@
 
 <script>
 (function(){
-  var id = new URLSearchParams(location.search).get('intro');
-  if(!id) return;
-  var row = document.getElementById(id);
-  if(row){ row.scrollIntoView({block:'center'}); row.style.outline='2px solid #1a1a1a'; setTimeout(function(){row.style.outline='';},1800); }
+  var q = new URLSearchParams(location.search);
+  var id = q.get('intro');
+  if(id){
+    var row = document.getElementById(id);
+    if(row){ row.scrollIntoView({block:'center'}); row.style.outline='2px solid #1a1a1a'; setTimeout(function(){row.style.outline='';},1800); }
+  }
+  // demo states for screenshots: ?demo=menu (open rachel's status menu), ?demo=contacted (rachel marked Contacted)
+  var demo = q.get('demo');
+  if(demo){
+    var r = document.getElementById('rachel');
+    if(demo==='menu') r.querySelector('.bw-status-menu').classList.add('open');
+    if(demo==='contacted'){
+      var p=r.querySelector('.bw-pill'); p.textContent='Contacted \u25be'; p.className='bw-pill bw-pill-contacted';
+      r.classList.remove('is-new'); r.querySelector('.last-updated').textContent='today at 9:41am';
+    }
+  }
 })();
 </script>
 <script src="../design-system/buildwell.js"></script>

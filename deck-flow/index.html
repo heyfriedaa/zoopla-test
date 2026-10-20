@@ -171,7 +171,7 @@ var NODES = [
   // ---- Firm · Buildwell web app (y 200/280) ----
   {id:'query', x:720, y:240, t:'New query received',
    d:'Introduction lands in the firm\u2019s Buildwell Plus account. Previously: no alert, no status.',
-   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html',img:'../assets/shots/introductions.png'}]},
+   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Homepage entry point',h:'../mvp/home.html',img:'../assets/shots/home.png'},{l:'Email entry point',h:'../mvp/email-mobile.html',img:'../assets/shots/email.png'}]},
   {id:'homepage', x:920, y:240, t:'Homepage',
    d:'The firm\u2019s landing screen when they open Buildwell Plus — carries the Introductions tile badge and notification bell.',
    ev:[{t:'fe',s:'page_view: home · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html',img:'../assets/shots/home.png'}]},
@@ -186,10 +186,10 @@ var NODES = [
    ev:[{t:'be',s:'introduction_opened'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html?intro=rachel',img:'../assets/shots/intro-rachel.png'}]},
   {id:'status', x:1500, y:240, t:'Change status', isnew:true,
    d:'One-click status pill in the row. MVP: New / Contacted. Placeholder statuses (Visit booked, Not pursuing) marked TBC with product.'+NEW_NOTE,
-   ev:[{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html',img:'../assets/shots/introductions.png'}]},
+   ev:[{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Web app — status dropdown',h:'../mvp/introductions.html?demo=menu',img:'../assets/shots/status-menu.png'}]},
   {id:'contacted', x:1700, y:240, t:'Contacted',
    d:'Assumption to validate: "response" = firm marks the introduction Contacted. This is how Buildwell measures response time.',
-   ev:[{t:'be',s:'status_changed: contacted'}], refs:[{l:'Brief — success metric',h:'#'}]},
+   ev:[{t:'be',s:'status_changed: contacted'}], refs:[{l:'Web app — marked Contacted',h:'../mvp/introductions.html?demo=contacted',img:'../assets/shots/contacted.png'}]},
 
   // ---- Firm · Mobile app (y 368) ----
   {id:'notif', x:920, y:368, t:'App notification', tbc:true,
@@ -247,6 +247,7 @@ NODES.forEach(function(n){
   el.id = 'n-'+n.id;
   el.innerHTML = '<span class="t">'+n.t+
     (n.tbc?'<span class="tbc-badge">TBC / to validate</span>':'')+'</span>';
+  if (n.refs.some(function(r){return r.h!=='#'})) el.style.cursor='pointer';
   canvas.appendChild(el);
 });
 
@@ -326,6 +327,10 @@ NODES.forEach(function(n){
     });
   });
   el.addEventListener('mouseleave', reset);
+  el.addEventListener('click', function(){
+    var ref = n.refs.find(function(r){ return r.h !== '#'; });
+    if (ref) window.open(ref.h, '_blank');
+  });
 });
 </script>
 <script src="../design-system/buildwell.js"></script>
