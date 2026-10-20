@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow | Buildwell Plus prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a2e; --soft:#55516b; --mute:#8f8aa0;
+    --line:#e9e7ee; --card:#fff;
+    --pink:#fbe9f6; --magenta:#c43fa8;
+    --blue:#3b5bdb; --blue-soft:#eef2ff;
+    --violet:#7048e8; --violet-soft:#f3f0ff;
+    --amber:#96741a;
+    --edge:#d9d5e0; --edge-dash:#c3bcd0;
+    --lane:#f5f5f7;
+    --new:#c43fa8;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    color:var(--ink);background:#fff;font-size:14px;-webkit-font-smoothing:antialiased}
+
+  .back{position:fixed;top:14px;left:16px;z-index:20;width:34px;height:34px;border-radius:9px;
+    border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;
+    color:var(--soft);text-decoration:none;font-size:15px}
+  .back:hover{border-color:var(--magenta);color:var(--magenta)}
+
+  .canvas-wrap{overflow-x:auto;padding:20px 56px 130px}
+  .canvas{position:relative;width:2080px;height:700px;margin:0 auto}
+
+  /* top journey labels — span all lanes, fit the boxes */
+  .flowtag{position:absolute;top:8px;font-size:10.5px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.08em;padding:3px 12px;border-radius:999px;z-index:3;text-align:center}
+
+  /* dashed hypothesis group: change status + calls customer */
+  .hypo-group{position:absolute;left:1470px;top:212px;width:215px;height:305px;
+    border:1.5px dashed #c9c3d4;border-radius:14px;pointer-events:none;z-index:1}
+  .hypo-label{position:absolute;bottom:-20px;left:8px;right:0;font-size:10px;
+    color:var(--mute);white-space:nowrap}
+  .flowtag-q{left:700px;right:1210px;background:#eef2ff;color:var(--blue)}
+  .flowtag-a{left:880px;right:800px;background:var(--pink);color:var(--magenta)}
+  .flowtag-r{left:1290px;right:10px;background:#e8f5ee;color:#1e7f4f}
+
+  /* lanes — uniform light grey */
+  .lane{position:absolute;left:0;right:0;border-radius:12px;background:var(--lane);border:1px solid var(--line)}
+  .lane-head{position:absolute;left:16px;display:flex;align-items:center;gap:7px;
+    font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);z-index:3}
+  .lane-head svg{width:15px;height:15px;stroke:var(--mute)}
+  .lane-hw{top:44px;height:110px}
+  .lane-firm{top:174px;height:400px}
+  .lane-be{top:594px;height:112px}
+  .sublane{position:absolute;left:16px;right:16px;border-top:1px dashed #dedae6}
+  .sublane-txt{position:absolute;top:8px;left:0;font-size:10px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.08em;color:var(--mute);background:var(--lane);padding-right:8px}
+
+  /* nodes */
+  .node{position:absolute;width:160px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 1px 2px rgba(26,26,46,.05),0 2px 8px rgba(26,26,46,.04);
+    cursor:default;transition:opacity .15s, box-shadow .15s, transform .15s, border-color .15s;z-index:2}
+  .node .t{font-size:12.5px;font-weight:600;line-height:1.3;letter-spacing:-.005em;text-align:center}
+  .node:hover{border-color:#c9c3d4;box-shadow:0 6px 20px rgba(26,26,46,.14);transform:translateY(-2px)}
+  .node.off{background:#fbfbfc;color:var(--soft)}
+  .node.tbc{border-style:dashed;border-color:#e3d3a0}
+  .node.be{background:#f7f9fe}
+  .node.isnew{border:1.5px solid var(--new)}
+  .node.isnew:hover{border-color:var(--new)}
+  .node.dim{opacity:.22}
+  .node .tbc-badge{display:block;font-size:9px;color:var(--amber);font-weight:600;margin-top:1px}
+  .node .ast{font-size:9px;font-weight:500;color:var(--mute);vertical-align:super}
+
+  svg.edges{position:absolute;inset:0;pointer-events:none;z-index:1}
+  svg.edges path{fill:none;stroke:var(--edge);stroke-width:1.5}
+  svg.edges path.dash{stroke-dasharray:4 4;stroke:var(--edge-dash)}
+  svg.edges path.dim{opacity:.12}
+
+  /* details panel — references only, shown on hover */
+  .details{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line);
+    padding:16px 26px;display:none;gap:28px;align-items:flex-start;
+    box-shadow:0 -8px 30px rgba(26,26,46,.06);z-index:10}
+  .details.on{display:flex}
+  .details .dt{min-width:260px;max-width:320px}
+  .details .dt h2{font-size:14px;font-weight:600;margin-bottom:3px}
+  .details .dt p{font-size:12.5px;color:var(--soft);line-height:1.45}
+  .details .shots{display:flex;gap:14px;align-items:flex-start}
+  .shot{display:block;text-decoration:none;color:var(--soft)}
+  .shot .ph{width:200px;height:112px;border:1px dashed #c9c3d4;border-radius:8px;
+    background:#f6f5f8;display:flex;align-items:center;justify-content:center;
+    font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;text-align:center;padding:6px}
+  .shot .lb{font-size:11.5px;font-weight:500;margin-top:5px;color:var(--soft)}
+  .shot:hover .lb{color:var(--magenta);text-decoration:underline}
+  .shot:hover .ph{border-color:var(--magenta)}
+  .empty{font-size:12px;color:var(--mute);font-style:italic}
+</style>
+</head>
+<body>
+
+<a class="back" href="../index.html" title="Back to index">&larr;</a>
+
+<div class="canvas-wrap">
+<div class="canvas" id="canvas">
+  <div class="flowtag flowtag-q">Initial query</div>
+  <div class="flowtag flowtag-a">Alert</div>
+  <div class="flowtag flowtag-r">Respond</div>
+
+  <div class="lane lane-hw">
+    <span class="lane-head" style="top:10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="12" cy="7" r="3.4"/><path d="M6.5 20c.7-3.4 2.9-5.2 5.5-5.2s4.8 1.8 5.5 5.2"/>
+      </svg>
+      Homeowner
+    </span>
+  </div>
+  <div class="lane lane-firm">
+    <span class="lane-head" style="top:10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 5.5a4 4 0 0 0-5.3 5L4 15.7a2 2 0 1 0 2.8 2.8l5.2-5.2a4 4 0 0 0 5-5.3l-2.6 2.6-2.4-.6-.6-2.4z"/>
+        <path d="M15.5 15.5l4.7 4.7"/>
+      </svg>
+      Firm (persona TBD)
+    </span>
+    <span class="lane-head" style="top:36px">Buildwell (web app)</span>
+    <div class="sublane" style="top:156px"><span class="sublane-txt">Mobile app (TBC — no app today)</span></div>
+    <div class="sublane" style="top:248px"><span class="sublane-txt">Outside Buildwell</span></div>
+  </div>
+  <div class="lane lane-be">
+    <span class="lane-head" style="top:10px">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-8"/><path d="M22 20H2"/>
+      </svg>
+      Back-end &amp; metrics
+    </span>
+  </div>
+
+  <div class="hypo-group">
+    <span class="hypo-label">Query responded — hypothesis: triage &amp; prioritise may happen here · out of scope</span>
+  </div>
+  <svg class="edges" id="edges" width="2080" height="700">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M1,1 L9,5 L1,9" fill="none" stroke="#d9d5e0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+      <marker id="arrow-dash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M1,1 L9,5 L1,9" fill="none" stroke="#c3bcd0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+  </svg>
+</div>
+</div>
+
+<div class="details" id="details">
+  <div class="dt"><h2 id="d-title"></h2><p id="d-desc"></p></div>
+  <div class="shots" id="d-shots"></div>
+</div>
+
+<script>
+var NEW_NOTE = ' New element — assumed this doesn\u2019t exist for firms yet.';
+var NODES = [
+  // ---- Homeowner (y 88) ----
+  {id:'listing', x:60,  y:88, t:'Buildwell listing page',
+   d:'Homeowner browses Buildwell and finds firms. Existing Buildwell surface — outside this project\u2019s scope, shown for context.',
+   ev:[], refs:[{l:'Sketch: homeowner journey',h:'#'}]},
+  {id:'browse', x:280, y:88, t:'Browse firms',
+   d:'Homeowner browses and compares firms on Buildwell.', ev:[], refs:[{l:'Sketch: homeowner journey',h:'#'}]},
+  {id:'profile', x:500, y:88, t:'Firm profile',
+   d:'Homeowner views a firm\u2019s profile and chooses to enquire. Assumed entry point for introductions — TBC.',
+   ev:[], refs:[{l:'Sketch: homeowner journey',h:'#'}]},
+  {id:'enquiry', x:720, y:88, t:'Sends enquiry',
+   d:'Homeowner submits an enquiry — becomes an "introduction" inside Buildwell.',
+   ev:[{t:'be',s:'query_sent / introduction_received'}], refs:[{l:'Sketch: homeowner journey',h:'#'}]},
+
+  // ---- Firm · Buildwell web app (y 200/280) ----
+  {id:'query', x:720, y:240, t:'New query received',
+   d:'Introduction lands in the firm\u2019s Buildwell Plus account. Previously: no alert, no status.',
+   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html'}]},
+  {id:'homepage', x:920, y:240, t:'Homepage',
+   d:'The firm\u2019s landing screen when they open Buildwell Plus — carries the Introductions tile badge and notification bell.',
+   ev:[{t:'fe',s:'page_view: home · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+  {id:'tile', x:1100, y:200, t:'Homepage tile + badge', isnew:true,
+   d:'"Introductions this month" tile is now clickable with a "New" badge for unactioned intros.'+NEW_NOTE,
+   ev:[{t:'fe',s:'tile_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+  {id:'bell', x:1100, y:280, t:'Notification bell', isnew:true,
+   d:'Header bell with count + dropdown listing new introductions, linking to each one.'+NEW_NOTE,
+   ev:[{t:'fe',s:'bell_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+  {id:'land', x:1300, y:240, t:'Lands on Introductions tab',
+   d:'Email CTA deep-links straight to the Introductions list — row highlighted with name, phone, area, job, notes, status. All routes converge here.',
+   ev:[{t:'be',s:'introduction_opened'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html?intro=rachel'}]},
+  {id:'status', x:1500, y:240, t:'Change status', isnew:true,
+   d:'One-click status pill in the row. MVP: New / Contacted. Placeholder statuses (Visit booked, Not pursuing) marked TBC with product.'+NEW_NOTE,
+   ev:[{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html'}]},
+  {id:'contacted', x:1700, y:240, t:'Contacted',
+   d:'Assumption to validate: "response" = firm marks the introduction Contacted. This is how Buildwell measures response time.',
+   ev:[{t:'be',s:'status_changed: contacted'}], refs:[{l:'Brief — success metric',h:'#'}]},
+
+  // ---- Firm · Mobile app (y 368) ----
+  {id:'notif', x:920, y:368, t:'App notification', tbc:true,
+   d:'Push/in-app notification on a mobile app. To validate — there\u2019s no app today; clarify with the panel whether this is wanted.',
+   ev:[{t:'fe',s:'notification_optin (proposed)'}], refs:[{l:'Sketch — "desktop notif / mobile?"',h:'#'}]},
+
+  // ---- Firm · Outside Buildwell (y 452) ----
+  {id:'email', x:920, y:452, t:'Email to registered address<span class="ast">*</span>', isnew:true,
+   d:'Teaser only: job type, area, how long ago. No customer name/phone. One CTA. Assumption: shared inbox — whoever sees it first acts.'+NEW_NOTE,
+   ev:[{t:'be',s:'email_sent'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'},{l:'Email — desktop',h:'../mvp/email-desktop.html'}]},
+  {id:'open', x:1120, y:452, t:'Opens email',
+   d:'Firm opens the introduction email on any device.',
+   ev:[{t:'be',s:'introduction_opened'},{t:'fe',s:'email_opened'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'}]},
+  {id:'cta', x:1300, y:452, t:'CTA: "View introduction"<span class="ast">*</span>', isnew:true,
+   d:'Single primary action — links straight to the Introductions tab with that row highlighted (not the homepage).'+NEW_NOTE,
+   ev:[{t:'fe',s:'cta_clicked · device'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'}]},
+  {id:'call', x:1500, y:452, t:'Calls the customer', off:true,
+   d:'The call happens outside the platform — Buildwell never sees it. Grouped with "Change status": hypothesis is firms may triage/prioritise the call around this moment — not part of this ask.',
+   ev:[], refs:[{l:'Sketch — "calls customer"',h:'#'}]},
+
+  // ---- Back-end & metrics (y 630) ----
+  {id:'m1', x:720, y:630, t:'query received', be:true, covers:['enquiry','query'],
+   d:'Back-end event when the introduction is created. Column: Sends enquiry → New query received.',
+   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Brief — analytics',h:'#'}]},
+  {id:'m3', x:1120, y:630, t:'query opened', be:true, covers:['email','notif','homepage','tile','bell','open','cta'],
+   d:'BE: introduction_opened; FE (Mixpanel): email_opened, CTA clicked, tile/bell clicked — with device where possible.',
+   ev:[{t:'be',s:'introduction_opened'},{t:'fe',s:'cta_clicked · tile_clicked · bell_clicked · device'}], refs:[{l:'Brief — analytics',h:'#'}]},
+  {id:'m4', x:1600, y:630, t:'query responded', be:true, covers:['status','contacted','call'],
+   d:'Success metric: time from introduction_received to first status_changed → contacted.',
+   ev:[{t:'be',s:'status_changed: contacted'},{t:'be',s:'time_to_first_response'},{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Brief — success metric',h:'#'}]},
+];
+
+// [from, to, dashed?, bidirectional?]
+var EDGES = [
+  ['listing','browse'],['browse','profile'],['profile','enquiry'],
+  ['enquiry','query'],
+  ['query','notif', true, false, 'left'],['query','email', true, false, 'left'],
+  ['query','homepage', true],
+  ['homepage','tile'],['homepage','bell'],
+  ['tile','land'],['bell','land'],
+  ['email','open'],['open','cta'],['cta','land'],
+  ['land','status'],['status','contacted'],
+  ['status','call', false, true]
+];
+
+var canvas = document.getElementById('canvas');
+var svg = document.getElementById('edges');
+var byId = {}, bounds = {};
+
+NODES.forEach(function(n){
+  byId[n.id]=n;
+  var el = document.createElement('div');
+  el.className = 'node' + (n.off?' off':'') + (n.tbc?' tbc':'') + (n.be?' be':'') + (n.isnew?' isnew':'');
+  el.style.left = n.x+'px'; el.style.top = n.y+'px';
+  el.id = 'n-'+n.id;
+  el.innerHTML = '<span class="t">'+n.t+
+    (n.tbc?'<span class="tbc-badge">TBC / to validate</span>':'')+'</span>';
+  canvas.appendChild(el);
+});
+
+NODES.forEach(function(n){
+  var el = document.getElementById('n-'+n.id);
+  bounds[n.id] = {w:el.offsetWidth, h:el.offsetHeight,
+                  cx:n.x+el.offsetWidth/2, cy:n.y+el.offsetHeight/2};
+});
+
+function clipToBorder(to, from){
+  var dx = from.cx - to.cx, dy = from.cy - to.cy;
+  if (dx === 0 && dy === 0) return {x: to.cx, y: to.cy};
+  var sx = dx === 0 ? Infinity : (to.w/2) / Math.abs(dx);
+  var sy = dy === 0 ? Infinity : (to.h/2) / Math.abs(dy);
+  var s = Math.min(sx, sy);
+  return {x: to.cx + dx*s, y: to.cy + dy*s};
+}
+
+EDGES.forEach(function(e){
+  var A = bounds[e[0]], B = bounds[e[1]];
+  var a = clipToBorder(A, B), b = clipToBorder(B, A);
+  if (e[4] === 'left')  b = {x: B.cx - B.w/2, y: B.cy};   // force left-edge entry
+  if (e[4] === 'right') b = {x: B.cx + B.w/2, y: B.cy};
+  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  var dx = b.x - a.x, dy = b.y - a.y, d;
+  if (e[4] || Math.abs(dx) > Math.abs(dy)) {   // forced side -> approach horizontally so arrow points right
+    var mx = (a.x + b.x)/2;
+    d = 'M'+a.x+' '+a.y+' C'+mx+' '+a.y+', '+mx+' '+b.y+', '+b.x+' '+b.y;
+  } else {
+    var my = (a.y + b.y)/2;
+    d = 'M'+a.x+' '+a.y+' C'+a.x+' '+my+', '+b.x+' '+my+', '+b.x+' '+b.y;
+  }
+  path.setAttribute('d', d);
+  if (e[2]) path.classList.add('dash');
+  var marker = e[2] ? 'arrow-dash' : 'arrow';
+  path.setAttribute('marker-end','url(#'+marker+')');
+  if (e[3]) path.setAttribute('marker-start','url(#'+marker+')'); // two-way
+  path.dataset.edge = e[0]+'|'+e[1];
+  svg.appendChild(path);
+});
+
+var panel=document.getElementById('details'),
+    dT=document.getElementById('d-title'), dD=document.getElementById('d-desc'),
+    dS=document.getElementById('d-shots');
+
+function show(n){
+  panel.classList.add('on');
+  dT.textContent = n.t;
+  dD.textContent = n.d;
+  var protoRefs = n.refs.filter(function(r){ return r.h !== '#'; });
+  dS.innerHTML = protoRefs.map(function(r){
+    return '<a class="shot" href="'+r.h+'"><div class="ph">screen preview</div><div class="lb">'+r.l+' \u2197</div></a>';
+  }).join('');
+  if (!dS.innerHTML) dS.innerHTML = '<span class="empty">no linked screen — sketch reference only</span>';
+}
+function reset(){
+  panel.classList.remove('on');
+  document.querySelectorAll('.node').forEach(function(el){el.classList.remove('dim')});
+  document.querySelectorAll('svg.edges path').forEach(function(p){p.classList.remove('dim')});
+}
+NODES.forEach(function(n){
+  var el=document.getElementById('n-'+n.id);
+  el.addEventListener('mouseenter',function(){
+    show(n);
+    var keep = {};
+    if (n.covers) {
+      n.covers.forEach(function(id){ keep[id]=1; });
+    } else {
+      EDGES.forEach(function(e){ if(e[0]===n.id||e[1]===n.id){ keep[e[0]]=keep[e[1]]=1; } });
+    }
+    keep[n.id]=1;
+    NODES.forEach(function(m){ if(!keep[m.id]) document.getElementById('n-'+m.id).classList.add('dim'); });
+    document.querySelectorAll('svg.edges path').forEach(function(p){
+      var parts=p.dataset.edge.split('|');
+      var lit = n.covers ? (keep[parts[0]]&&keep[parts[1]]) : (parts[0]===n.id||parts[1]===n.id);
+      if(!lit) p.classList.add('dim');
+    });
+  });
+  el.addEventListener('mouseleave', reset);
+});
+</script>
+</body>
+</html>
