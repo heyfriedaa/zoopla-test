@@ -102,5 +102,30 @@
 
   document.addEventListener('click', function () {
     document.querySelectorAll('.bw-status-menu.open, .bw-bell-menu.open').forEach(function (m) { m.classList.remove('open'); });
+    document.querySelectorAll('.bw-fab.open').forEach(function (f) { f.classList.remove('open'); });
+  });
+
+  // ---- floating action button (home / reset) ----
+  var inSub = /\/(mvp|deck-flow)\//.test(location.pathname);
+  var fab = document.createElement('div');
+  fab.className = 'bw-fab';
+  fab.innerHTML =
+    '<div class="bw-fab-opts">' +
+      '<a class="bw-fab-opt" href="' + (inSub ? '../index.html' : 'index.html') + '">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Go back home</a>' +
+      (document.body.dataset.fab === 'home-only' ? '' :
+      '<button class="bw-fab-opt" id="bw-fab-reset">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reset state</button>') +
+    '</div>' +
+    '<button class="bw-fab-main" aria-label="Demo tools">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h10M18 8h2M4 16h4M12 16h8"/><circle cx="16" cy="8" r="2.2"/><circle cx="9" cy="16" r="2.2"/></svg>' +
+    '</button>';
+  document.body.appendChild(fab);
+  fab.querySelector('.bw-fab-main').addEventListener('click', function (e) {
+    e.stopPropagation(); fab.classList.toggle('open');
+  });
+  var rst = fab.querySelector('#bw-fab-reset');
+  if (rst) rst.addEventListener('click', function () {
+    localStorage.clear(); location.reload();
   });
 })();

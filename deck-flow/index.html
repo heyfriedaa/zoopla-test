@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flow | Buildwell Plus prototype</title>
+<link rel="stylesheet" href="../design-system/lofi.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -21,11 +22,6 @@
   *{box-sizing:border-box;margin:0}
   body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     color:var(--ink);background:#fff;font-size:14px;-webkit-font-smoothing:antialiased}
-
-  .back{position:fixed;top:14px;left:16px;z-index:20;width:34px;height:34px;border-radius:9px;
-    border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;
-    color:var(--soft);text-decoration:none;font-size:15px}
-  .back:hover{border-color:var(--magenta);color:var(--magenta)}
 
   .canvas-wrap{overflow-x:auto;padding:20px 56px 130px}
   .canvas{position:relative;width:2080px;height:700px;margin:0 auto}
@@ -87,6 +83,7 @@
   .details .dt p{font-size:12.5px;color:var(--soft);line-height:1.45}
   .details .shots{display:flex;gap:14px;align-items:flex-start}
   .shot{display:block;text-decoration:none;color:var(--soft)}
+  .shot .phimg{width:200px;display:block;border:1px solid var(--line);border-radius:8px}
   .shot .ph{width:200px;height:112px;border:1px dashed #c9c3d4;border-radius:8px;
     background:#f6f5f8;display:flex;align-items:center;justify-content:center;
     font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;text-align:center;padding:6px}
@@ -94,11 +91,10 @@
   .shot:hover .lb{color:var(--magenta);text-decoration:underline}
   .shot:hover .ph{border-color:var(--magenta)}
   .empty{font-size:12px;color:var(--mute);font-style:italic}
+
 </style>
 </head>
-<body>
-
-<a class="back" href="../index.html" title="Back to index">&larr;</a>
+<body data-fab="home-only">
 
 <div class="canvas-wrap">
 <div class="canvas" id="canvas">
@@ -175,22 +171,22 @@ var NODES = [
   // ---- Firm · Buildwell web app (y 200/280) ----
   {id:'query', x:720, y:240, t:'New query received',
    d:'Introduction lands in the firm\u2019s Buildwell Plus account. Previously: no alert, no status.',
-   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html'}]},
+   ev:[{t:'be',s:'introduction_received'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html',img:'../assets/shots/introductions.png'}]},
   {id:'homepage', x:920, y:240, t:'Homepage',
    d:'The firm\u2019s landing screen when they open Buildwell Plus — carries the Introductions tile badge and notification bell.',
-   ev:[{t:'fe',s:'page_view: home · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+   ev:[{t:'fe',s:'page_view: home · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html',img:'../assets/shots/home.png'}]},
   {id:'tile', x:1100, y:200, t:'Homepage tile + badge', isnew:true,
    d:'"Introductions this month" tile is now clickable with a "New" badge for unactioned intros.'+NEW_NOTE,
-   ev:[{t:'fe',s:'tile_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+   ev:[{t:'fe',s:'tile_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html',img:'../assets/shots/home.png'}]},
   {id:'bell', x:1100, y:280, t:'Notification bell', isnew:true,
    d:'Header bell with count + dropdown listing new introductions, linking to each one.'+NEW_NOTE,
-   ev:[{t:'fe',s:'bell_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html'}]},
+   ev:[{t:'fe',s:'bell_clicked · device'}], refs:[{l:'Web app — Home',h:'../mvp/home.html',img:'../assets/shots/home.png'}]},
   {id:'land', x:1300, y:240, t:'Lands on Introductions tab',
    d:'Email CTA deep-links straight to the Introductions list — row highlighted with name, phone, area, job, notes, status. All routes converge here.',
-   ev:[{t:'be',s:'introduction_opened'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html?intro=rachel'}]},
+   ev:[{t:'be',s:'introduction_opened'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html?intro=rachel',img:'../assets/shots/intro-rachel.png'}]},
   {id:'status', x:1500, y:240, t:'Change status', isnew:true,
    d:'One-click status pill in the row. MVP: New / Contacted. Placeholder statuses (Visit booked, Not pursuing) marked TBC with product.'+NEW_NOTE,
-   ev:[{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html'}]},
+   ev:[{t:'fe',s:'status_change_clicked · device'}], refs:[{l:'Web app — Introductions',h:'../mvp/introductions.html',img:'../assets/shots/introductions.png'}]},
   {id:'contacted', x:1700, y:240, t:'Contacted',
    d:'Assumption to validate: "response" = firm marks the introduction Contacted. This is how Buildwell measures response time.',
    ev:[{t:'be',s:'status_changed: contacted'}], refs:[{l:'Brief — success metric',h:'#'}]},
@@ -203,13 +199,13 @@ var NODES = [
   // ---- Firm · Outside Buildwell (y 452) ----
   {id:'email', x:920, y:452, t:'Email to registered address<span class="ast">*</span>', isnew:true,
    d:'Teaser: enquirer name, job type, area, age, truncated notes. One CTA ("View details"). Assumption: shared inbox — whoever sees it first acts.'+NEW_NOTE,
-   ev:[{t:'be',s:'email_sent'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'},{l:'Email — desktop',h:'../mvp/email-desktop.html'}]},
+   ev:[{t:'be',s:'email_sent'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html',img:'../assets/shots/email.png'},{l:'Email — desktop',h:'../mvp/email-desktop.html',img:'../assets/shots/email.png'}]},
   {id:'open', x:1120, y:452, t:'Opens email',
    d:'Firm opens the introduction email on any device.',
-   ev:[{t:'be',s:'introduction_opened'},{t:'fe',s:'email_opened'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'}]},
+   ev:[{t:'be',s:'introduction_opened'},{t:'fe',s:'email_opened'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html',img:'../assets/shots/email.png'}]},
   {id:'cta', x:1300, y:452, t:'CTA: "View introduction"<span class="ast">*</span>', isnew:true,
    d:'Single primary action — links straight to the Introductions tab with that row highlighted (not the homepage).'+NEW_NOTE,
-   ev:[{t:'fe',s:'cta_clicked · device'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html'}]},
+   ev:[{t:'fe',s:'cta_clicked · device'}], refs:[{l:'Email — mobile',h:'../mvp/email-mobile.html',img:'../assets/shots/email.png'}]},
   {id:'call', x:1500, y:452, t:'Calls the customer', off:true,
    d:'The call happens outside the platform — Buildwell never sees it. Grouped with "Change status": hypothesis is firms may triage/prioritise the call around this moment — not part of this ask.',
    ev:[], refs:[{l:'Sketch — "calls customer"',h:'#'}]},
@@ -302,7 +298,7 @@ function show(n){
   dD.textContent = n.d;
   var protoRefs = n.refs.filter(function(r){ return r.h !== '#'; });
   dS.innerHTML = protoRefs.map(function(r){
-    return '<a class="shot" href="'+r.h+'"><div class="ph">screen preview</div><div class="lb">'+r.l+' \u2197</div></a>';
+    return '<a class="shot" href="'+r.h+'">'+(r.img?'<img class="phimg" src="'+r.img+'" alt="">':'<div class="ph">screen preview</div>')+'<div class="lb">'+r.l+' \u2197</div></a>';
   }).join('');
   if (!dS.innerHTML) dS.innerHTML = '<span class="empty">no linked screen — sketch reference only</span>';
 }
@@ -332,5 +328,6 @@ NODES.forEach(function(n){
   el.addEventListener('mouseleave', reset);
 });
 </script>
+<script src="../design-system/buildwell.js"></script>
 </body>
 </html>

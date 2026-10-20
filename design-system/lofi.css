@@ -18,6 +18,9 @@
 .bw-bell-count{background:#1a1a1a}
 .bw-nav a.active{background:#eee;color:#1a1a1a}
 .bw-logo span{color:#1a1a1a}
+.bw-sub{margin-bottom:10px}
+.bw-sub:empty, .bw-sub:blank{margin:0}
+p.bw-sub{line-height:1}
 .bw-card{overflow:visible}
 .bw-table th .sort{font-weight:700;color:#1a1a1a}
 .bw-bell-clear{display:block;width:100%;border:0;background:none;padding:10px 14px;
@@ -25,6 +28,20 @@
 .bw-bell-clear:hover{background:#f4f4f4}
 .bw-bell-empty{padding:14px;font-size:13px;color:#8a8a8a;text-align:center}
 .bw-bell-btn svg{width:16px;height:16px;stroke:#1a1a1a;vertical-align:-2px}
+/* floating action button */
+.bw-fab{position:fixed;bottom:20px;right:20px;z-index:60;display:flex;flex-direction:column;align-items:flex-end}
+.bw-fab-main{width:44px;height:44px;border-radius:50%;background:#1a1a1a;border:0;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.bw-fab-main svg{width:18px;height:18px;stroke:#fff}
+.bw-fab-opts{display:none;flex-direction:column;gap:8px;align-items:flex-end;margin-bottom:10px}
+.bw-fab.open .bw-fab-opts{display:flex}
+.bw-fab-opt{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e2e2e2;
+  border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:600;color:#1a1a1a;
+  text-decoration:none;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.bw-fab-opt:hover{border-color:#1a1a1a}
+.bw-fab-opt svg{width:14px;height:14px;stroke:#1a1a1a}
+
 @media (max-width:860px){
   .bw-status-menu{left:0;right:auto;min-width:0;width:170px}
 }
