@@ -106,7 +106,7 @@
   });
 
   // ---- floating action button (home / reset) ----
-  var inSub = /\/(mvp|deck-flow)\//.test(location.pathname);
+  var inSub = /\/(mvp|deck-flow|research|journey)\//.test(location.pathname);
   var fab = document.createElement('div');
   fab.className = 'bw-fab';
   fab.innerHTML =

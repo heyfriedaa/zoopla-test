@@ -7,66 +7,35 @@
 <link rel="stylesheet" href="../design-system/buildwell.css">
 <link rel="stylesheet" href="../design-system/lofi.css">
 <style>
-  .grp{margin-bottom:36px}
-  .grp h2{font-size:15px;margin:0 0 4px}
-  .grp p{font-size:13px;color:#666;margin:0 0 14px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-  .slot{background:#fff;border:1px dashed #c9c9c9;border-radius:10px;overflow:hidden}
+  body{padding:28px 24px 60px}
+  h1.bw-h1{margin-bottom:32px}
+  .masonry{columns:3 320px;column-gap:16px}
+  .slot{break-inside:avoid;margin-bottom:16px;border-radius:10px;overflow:hidden;
+    box-shadow:0 1px 3px rgba(0,0,0,.08)}
   .slot img{width:100%;display:block}
-  .slot .ph{height:140px;display:flex;align-items:center;justify-content:center;
-    color:#9a9a9a;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
-    text-align:center;padding:10px;background:#f6f6f6}
-  .slot .cap{font-size:11.5px;color:#666;padding:7px 10px;border-top:1px solid #eee}
 </style>
 </head>
 <body>
-<div class="bw-page" style="max-width:960px">
-  <h1 class="bw-h1">Competitor research</h1>
-  <p class="bw-sub">Reference material for the new-introduction flow. Drop images into <code>assets/research/</code> to fill each slot.</p>
-
-  <div class="grp">
-    <h2>Email research</h2>
-    <p>Alert email references — Airbnb et al. Files: <code>assets/research/email/</code></p>
-    <div class="grid" id="g-email"></div>
-  </div>
-
-  <div class="grp">
-    <h2>Listing inspirations / research</h2>
-    <p>SaaS list &amp; table layouts — status pills, row density. Files: <code>assets/research/listing/</code></p>
-    <div class="grid" id="g-listing"></div>
-  </div>
-
-  <div class="grp">
-    <h2>Dashboard research</h2>
-    <p>Stat tiles, glanceable metrics. Files: <code>assets/research/dashboard/</code></p>
-    <div class="grid" id="g-dash"></div>
-  </div>
+<div style="max-width:1400px;margin:0 auto">
+  <h1 class="bw-h1">Competitor Research</h1>
+  <div class="masonry" id="g-all"></div>
 </div>
 
 <script>
-// fill each grid from assets/research/<dir>/1..6.png — missing files show as placeholders
-var GROUPS = {
-  'g-email':    {dir:'email',     n:6, cap:'Airbnb / email ref'},
-  'g-listing':  {dir:'listing',   n:6, cap:'SaaS list ref'},
-  'g-dash':     {dir:'dashboard', n:6, cap:'Dashboard ref'}
-};
-Object.keys(GROUPS).forEach(function(id){
-  var g = GROUPS[id], el = document.getElementById(id);
-  for (var i=1;i<=g.n;i++){
-    var slot=document.createElement('div'); slot.className='slot';
-    var img=new Image();
-    img.src='../assets/research/'+g.dir+'/'+i+'.png';
-    img.onload=(function(s){return function(){ s.querySelector('.ph').remove(); };})(slot);
-    img.onerror=function(){ this.remove(); };
-    slot.appendChild(img);
-    var ph=document.createElement('div'); ph.className='ph';
-    ph.textContent=g.dir+'/'+i+'.png';
-    slot.appendChild(ph);
-    var cap=document.createElement('div'); cap.className='cap';
-    cap.textContent=g.cap+' '+i;
-    slot.appendChild(cap);
-    el.appendChild(slot);
-  }
+// fill each grid from assets/research/<dir>/ — listed files only, no captions
+var FILES = [
+  ['email','Screenshot 2026-10-20 at 12.31.24\u202fpm.png'],
+  ['email','Deel Web 51.png'],
+  ['email','Screenshot 2026-10-20 at 12.59.05\u202fpm.png']
+];
+var el = document.getElementById('g-all');
+FILES.forEach(function(pair){
+  var slot=document.createElement('div'); slot.className='slot';
+  var img=new Image();
+  img.src='../assets/research/'+pair[0]+'/'+pair[1];
+  img.onerror=function(){ slot.remove(); };
+  slot.appendChild(img);
+  el.appendChild(slot);
 });
 </script>
 <script src="../design-system/buildwell.js"></script>
