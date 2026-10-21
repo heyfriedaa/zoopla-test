@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journeys | Buildwell Plus</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+  background:#faf9fc;color:#191336;padding:60px 40px}
+h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:48px}
+
+
+.board{position:relative;width:1540px;height:330px}
+
+.lane-label{position:absolute;left:0;font-size:11px;text-transform:uppercase;
+  letter-spacing:.08em;color:#9b95ae;font-weight:600}
+
+.step{position:absolute;width:150px;background:#fff;border:1px solid #ece9f2;
+  border-radius:12px;padding:14px 16px;font-size:13px;font-weight:600;
+  box-shadow:0 1px 2px rgba(25,19,54,.05);text-align:center;line-height:1.3}
+
+.arr{position:absolute;color:#c9c4d6;font-size:16px;width:40px;text-align:center}
+.arr-v{position:absolute;color:#c9c4d6;font-size:18px;text-align:center;width:150px}
+
+.dashed{position:absolute;border:1.5px dashed #d6d1e0;border-radius:16px}
+.dashed-cap{position:absolute;font-size:11px;color:#9b95ae;text-align:center;font-style:italic}
+
+.triage{position:absolute;font-size:13px;font-weight:600;color:#b7b2c6;text-align:center;width:150px;line-height:1.3}
+.triage-cap{position:absolute;font-size:11px;color:#b7b2c6;text-align:center;width:190px;font-style:italic}
+</style>
+</head>
+<body>
+
+<h1>Journeys — summarised</h1>
+
+
+<div class="board">
+
+  <div class="lane-label" style="top:0">Homeowner</div>
+  <div class="lane-label" style="top:130px">Firm</div>
+
+  <!-- homeowner row -->
+  <div class="step" style="left:0;    top:32px">Listing page</div>
+  <div class="arr"  style="left:150px;top:46px">&#8594;</div>
+  <div class="step" style="left:190px;top:32px">Browse firms</div>
+  <div class="arr"  style="left:340px;top:46px">&#8594;</div>
+  <div class="step" style="left:380px;top:32px">Firm profile</div>
+  <div class="arr"  style="left:530px;top:46px">&#8594;</div>
+  <div class="step" style="left:570px;top:32px">Finds a suitable firm</div>
+  <div class="arr"  style="left:720px;top:46px">&#8594;</div>
+  <div class="step" style="left:760px;top:32px">Introduction sent</div>
+
+  <!-- connector sent -> arrives -->
+  <div class="arr-v" style="left:760px;top:104px">&#8595;</div>
+
+  <!-- firm row (starts under Introduction sent) -->
+  <div class="step" style="left:760px; top:132px">Introduction arrives</div>
+  <div class="arr"  style="left:910px; top:146px">&#8594;</div>
+  <div class="step" style="left:950px; top:132px">Alert</div>
+  <div class="arr"  style="left:1100px;top:146px">&#8594;</div>
+  <div class="step" style="left:1140px;top:132px">Respond</div>
+  <div class="arr"  style="left:1290px;top:146px">&#8594;</div>
+
+  <div class="triage" style="left:1330px;top:146px">Triage &amp; prioritise</div>
+  <div class="triage-cap" style="left:1310px;top:216px">hypothesis only, out of scope</div>
+
+  <!-- assumed outline: sent + arrives -->
+  <div class="dashed" style="left:748px;top:20px;width:178px;height:192px"></div>
+  <div class="dashed-cap" style="left:726px;top:222px;width:220px">Assumed to work as is. Not validated.</div>
+
+</div>
+
+</body>
+</html>
