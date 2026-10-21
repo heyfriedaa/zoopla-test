@@ -57,6 +57,7 @@
     box-shadow:0 1px 2px rgba(26,26,46,.05),0 2px 8px rgba(26,26,46,.04);
     cursor:default;transition:opacity .15s, box-shadow .15s, transform .15s, border-color .15s;z-index:2}
   .node .t{font-size:12.5px;font-weight:600;line-height:1.3;letter-spacing:-.005em;text-align:center}
+  .node .snippet{position:absolute;left:calc(100% + 16px);top:50%;transform:translateY(-50%);width:210px;font-size:11px;font-weight:400;line-height:1.5;color:var(--mute);text-align:left}
   .node:hover{border-color:#c9c3d4;box-shadow:0 6px 20px rgba(26,26,46,.14);transform:translateY(-2px)}
   .node.off{background:#fbfbfc;color:var(--soft)}
   .node.tbc{border-style:dashed;border-color:#e3d3a0}
@@ -168,6 +169,11 @@ var NODES = [
    d:'Homeowner submits an enquiry — becomes an "introduction" inside Buildwell.',
    ev:[{t:'be',s:'query_sent / introduction_received'}], refs:[{l:'Sketch: homeowner journey',h:'#'}]},
 
+  {id:'update', x:1500, y:88, t:'Short update message',
+   snippet:'To their registered email address — assuming there is one.',
+   d:'A short update is sent to the homeowner when the firm changes the introduction status. Assumption to validate: the homeowner has a registered email address.',
+   ev:[], refs:[]},
+
   // ---- Firm · Buildwell web app (y 200/280) ----
   {id:'query', x:720, y:240, t:'New query received',
    d:'Introduction lands in the firm\u2019s Buildwell Plus account. Previously: no alert, no status.',
@@ -231,7 +237,7 @@ var EDGES = [
   ['homepage','tile'],['homepage','bell'],
   ['tile','land'],['bell','land'],
   ['email','open'],['open','cta'],['cta','land'],
-  ['land','status'],['status','contacted'],
+  ['land','status'],['status','contacted'],['status','update', true],
   ['status','call', false, true]
 ];
 
@@ -246,6 +252,7 @@ NODES.forEach(function(n){
   el.style.left = n.x+'px'; el.style.top = n.y+'px';
   el.id = 'n-'+n.id;
   el.innerHTML = '<span class="t">'+n.t+
+    (n.snippet?'<span class="snippet">'+n.snippet+'</span>':'')+
     (n.tbc?'<span class="tbc-badge">TBC / to validate</span>':'')+'</span>';
   if (n.refs.some(function(r){return r.h!=='#'})) el.style.cursor='pointer';
   canvas.appendChild(el);
